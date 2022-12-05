@@ -1,0 +1,26 @@
+digraph g { fontname="Helvetica,Arial,sans-serif"; node [fontname="Helvetica,Arial,sans-serif", fontsize = "12"]; edge [fontname="Helvetica,Arial,sans-serif"] graph [ rankdir = "TB" ];"node0" [ label = <<table border='0' cellborder='1' cellspacing='0'>
+
+                    <tr><td colspan='2'>1</td></tr>
+                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
+            
+                  </table>> shape = "none"];"node1" [ label = <<table border='0' cellborder='1' cellspacing='0'>
+
+                    <tr><td colspan='2'>3</td></tr>
+                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
+            
+                  </table>> shape = "none"];"node2" [ label = <<table border='0' cellborder='1' cellspacing='0'>
+
+                    <tr><td colspan='2'>2</td></tr>
+                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
+            
+                  </table>> shape = "none"];"node3" [ label = <<table border='0' cellborder='1' cellspacing='0'>
+
+                    <tr><td colspan='2'>5</td></tr>
+                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
+            
+                  </table>> shape = "none"];"node4" [ label = <<table border='0' cellborder='1' cellspacing='0'>
+
+                    <tr><td colspan='2'>4</td></tr>
+                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
+            
+                  </table>> shape = "none"];"node0":f2 -> "node1":f0 [ id = 0 ];"node1":f1 -> "node2":f0 [ id = 1 ];"node1":f2 -> "node3":f0 [ id = 2 ];"node3":f1 -> "node4":f0 [ id = 3 ];}

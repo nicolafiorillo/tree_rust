@@ -1,8 +1,8 @@
 #[derive(Debug)]
 pub struct Node<T> {
-    element: T,
-    left: Tree<T>,
-    right: Tree<T>,
+    pub element: T,
+    pub left: Tree<T>,
+    pub right: Tree<T>,
 }
 
 #[derive(Debug)]
