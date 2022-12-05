@@ -24,6 +24,7 @@ impl GraphViz {
 
     pub fn write(&self) -> String {
         let mut content = self.header.clone();
+
         for i in self.nodes.iter() {
             content.push_str(i);
         }
@@ -47,12 +48,7 @@ impl GraphViz {
                 let node_name = format!("node{}", self.next_node_id);
 
                 let s = format!(
-                    "\"{}\" [ label = <<table border='0' cellborder='1' cellspacing='0'>
-
-                    <tr><td colspan='2'>{}</td></tr>
-                    <tr><td port='f1'>left</td><td port='f2'>right</td></tr>
-            
-                  </table>> shape = \"none\"];",
+                    "\"{}\" [ label = <<table border='0' cellborder='1' cellspacing='0'><tr><td colspan='2'>{}</td></tr><tr><td port='f1'>left</td><td port='f2'>right</td></tr></table>> shape = \"none\"];",
                     node_name, node.element
                 );
 
