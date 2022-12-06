@@ -1,11 +1,11 @@
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct Node<T> {
     pub element: T,
     pub left: Tree<T>,
     pub right: Tree<T>,
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum Tree<T> {
     Empty,
     NonEmpty(Box<Node<T>>),
@@ -42,5 +42,18 @@ mod tests {
         tree.add(1);
         tree.add(2);
         tree.add(3);
+
+        assert_element(&tree, 1);
+    }
+
+    fn assert_element<T: std::fmt::Debug + std::cmp::Eq>(tree: &Tree<T>, elem: T) {
+        match tree {
+            Tree::NonEmpty(ref node) => {
+                assert_eq!(node.element, elem);
+            }
+            Tree::Empty => {
+                panic!("Tree should cointain an element");
+            }
+        }
     }
 }
