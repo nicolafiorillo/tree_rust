@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::tree::*;
 
 #[derive(Debug, Default)]
@@ -37,11 +39,11 @@ impl GraphViz {
         content
     }
 
-    pub fn read_tree(&mut self, tree: &Tree<i32>) {
+    pub fn read_tree<T: Ord + Display>(&mut self, tree: &Tree<T>) {
         self.read_tree_internal(tree, "");
     }
 
-    fn read_tree_internal(&mut self, tree: &Tree<i32>, parent_node: &str) {
+    fn read_tree_internal<T: Ord + Display>(&mut self, tree: &Tree<T>, parent_node: &str) {
         match tree {
             Tree::Empty => (),
             Tree::NonEmpty(ref node) => {

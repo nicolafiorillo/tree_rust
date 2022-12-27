@@ -80,6 +80,7 @@ mod tests {
         let node = tree.find(5);
         assert_eq!(node.unwrap().element, 5);
     }
+
     fn assert_element<T: std::fmt::Debug + std::cmp::Eq>(tree: &Tree<T>, elem: T) {
         match tree {
             Tree::NonEmpty(ref node) => {
