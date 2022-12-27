@@ -31,8 +31,13 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    pub fn find(&self, elem: T) -> &Box<Node<T>> {
-        // TODO
+    pub fn find(&self, elem: T) -> Option<&Box<Node<T>>> {
+        match *self {
+            Tree::Empty => None,
+            Tree::NonEmpty(ref node) if node.element.eq(&elem) => Some(node),
+            Tree::NonEmpty(ref node) if node.element.gt(&elem) => node.left.find(elem),
+            Tree::NonEmpty(ref node) => node.right.find(elem),
+        }
     }
 }
 
@@ -51,7 +56,7 @@ mod tests {
     }
 
     #[test]
-    fn find_in_a_tree() {
+    fn find_in_an_unbalanced_tree() {
         let mut tree = Tree::Empty;
         tree.add(1);
         tree.add(2);
@@ -60,10 +65,21 @@ mod tests {
         tree.add(5);
 
         let node = tree.find(5);
-
-        assert_element(&node, 5);
+        assert_eq!(node.unwrap().element, 5);
     }
 
+    #[test]
+    fn find_in_a_balanced_tree() {
+        let mut tree = Tree::Empty;
+        tree.add(3);
+        tree.add(2);
+        tree.add(4);
+        tree.add(1);
+        tree.add(5);
+
+        let node = tree.find(5);
+        assert_eq!(node.unwrap().element, 5);
+    }
     fn assert_element<T: std::fmt::Debug + std::cmp::Eq>(tree: &Tree<T>, elem: T) {
         match tree {
             Tree::NonEmpty(ref node) => {
