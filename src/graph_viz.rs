@@ -50,8 +50,8 @@ impl GraphViz {
                 let node_name = format!("node{}", self.next_node_id);
 
                 let s = format!(
-                    "\"{}\" [ label = <<table border='0' cellborder='1' cellspacing='0'><tr><td port='f0' colspan='2'>{}</td></tr><tr><td port='f1'>left</td><td port='f2'>right</td></tr></table>> shape = \"none\"];",
-                    node_name, node.element
+                    "\"{}\" [ label = <<table border='0' cellborder='1' cellspacing='0'><tr><td port='f0' colspan='2'>{}</td></tr><tr><td colspan='2'>{}</td></tr><tr><td port='f1'>left</td><td port='f2'>right</td></tr></table>> shape = \"none\"];",
+                    node_name, node.element, node.height
                 );
 
                 self.next_node_id += 1;

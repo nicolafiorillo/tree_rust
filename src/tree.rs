@@ -1,6 +1,7 @@
 #[derive(PartialEq, Debug)]
 pub struct Node<T> {
     pub element: T,
+    pub height: u64,
     pub left: Tree<T>,
     pub right: Tree<T>,
 }
@@ -17,6 +18,7 @@ impl<T: Ord> Tree<T> {
             Tree::Empty => {
                 *self = Tree::NonEmpty(Box::new(Node {
                     element: elem,
+                    height: 0,
                     left: Tree::Empty,
                     right: Tree::Empty,
                 }))
