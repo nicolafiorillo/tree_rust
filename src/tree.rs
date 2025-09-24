@@ -5,10 +5,25 @@ pub struct Node<T> {
     pub right: Tree<T>,
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug)]
 pub enum Tree<T> {
     Empty,
     NonEmpty(Box<Node<T>>),
+}
+
+impl<T: PartialEq> PartialEq for Tree<T> {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Tree::Empty, Tree::Empty) => true,
+            (Tree::NonEmpty(_), Tree::Empty) => false,
+            (Tree::Empty, Tree::NonEmpty(_)) => false,
+            (Tree::NonEmpty(ref node1), Tree::NonEmpty(ref node2)) => {
+                node1.element == node2.element
+                    && node1.left == node2.left
+                    && node1.right == node2.right
+            }
+        }
+    }
 }
 
 impl<T: Ord> Tree<T> {
@@ -79,6 +94,41 @@ mod tests {
 
         let node = tree.find(5);
         assert_eq!(node.unwrap().element, 5);
+    }
+
+    #[test]
+    fn trees_are_equal() {
+        let mut tree1 = Tree::Empty;
+        tree1.add(3);
+        tree1.add(2);
+        tree1.add(4);
+        tree1.add(1);
+
+        let mut tree2 = Tree::Empty;
+        tree2.add(3);
+        tree2.add(2);
+        tree2.add(4);
+        tree2.add(1);
+
+        assert_eq!(tree1, tree2);
+    }
+
+    #[test]
+    fn trees_are_not_equal() {
+        let mut tree1 = Tree::Empty;
+        tree1.add(3);
+        tree1.add(2);
+        tree1.add(4);
+        tree1.add(1);
+
+        let mut tree2 = Tree::Empty;
+        tree2.add(3);
+        tree2.add(2);
+        tree2.add(4);
+        tree2.add(1);
+        tree2.add(0);
+
+        assert_ne!(tree1, tree2);
     }
 
     fn assert_element<T: std::fmt::Debug + std::cmp::Eq>(tree: &Tree<T>, elem: T) {
