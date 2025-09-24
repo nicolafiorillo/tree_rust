@@ -1,6 +1,6 @@
-# Tree Rust
+# Binary Tree Rust
 
-A simple playground for tree-structures experimentation.
+A simple playground for binary tree-structures experimentation.
 
 Written in Rust.
 
