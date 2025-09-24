@@ -9,10 +9,10 @@ use graph_viz::GraphViz;
 
 fn main() {
     let mut tree = Tree::Empty;
-    tree.add(1);
-    tree.add(2);
     tree.add(3);
+    tree.add(2);
     tree.add(4);
+    tree.add(1);
     tree.add(5);
 
     let mut graph = GraphViz::new();

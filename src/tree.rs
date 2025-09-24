@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 #[derive(PartialEq, Debug)]
 pub struct Node<T> {
     pub element: T,
@@ -26,7 +28,7 @@ impl<T: PartialEq> PartialEq for Tree<T> {
     }
 }
 
-impl<T: Ord> Tree<T> {
+impl<T: Ord + Display> Tree<T> {
     pub fn add(&mut self, elem: T) {
         match *self {
             Tree::Empty => {
@@ -46,12 +48,38 @@ impl<T: Ord> Tree<T> {
         }
     }
 
-    pub fn find(&self, elem: T) -> Option<&Box<Node<T>>> {
+    pub fn find(&self, elem: T) -> Option<&Node<T>> {
         match *self {
             Tree::Empty => None,
             Tree::NonEmpty(ref node) if node.element.eq(&elem) => Some(node),
             Tree::NonEmpty(ref node) if node.element.gt(&elem) => node.left.find(elem),
             Tree::NonEmpty(ref node) => node.right.find(elem),
+        }
+    }
+
+    pub fn in_order_print(&self) -> String {
+        match *self {
+            Tree::Empty => String::new(),
+            Tree::NonEmpty(ref node) => {
+                let mut result = String::new();
+                result.push_str(&node.left.in_order_print());
+                result.push_str(&format!("{}", node.element));
+                result.push_str(&node.right.in_order_print());
+                result.trim().to_string()
+            }
+        }
+    }
+
+    pub fn pre_order_print(&self) -> String {
+        match *self {
+            Tree::Empty => String::new(),
+            Tree::NonEmpty(ref node) => {
+                let mut result = String::new();
+                result.push_str(&node.right.pre_order_print());
+                result.push_str(&format!("{}", node.element));
+                result.push_str(&node.left.pre_order_print());
+                result.trim().to_string()
+            }
         }
     }
 }
@@ -129,6 +157,30 @@ mod tests {
         tree2.add(0);
 
         assert_ne!(tree1, tree2);
+    }
+
+    #[test]
+    fn in_order_print() {
+        let mut tree = Tree::Empty;
+        tree.add(3);
+        tree.add(2);
+        tree.add(4);
+        tree.add(1);
+        tree.add(5);
+
+        assert_eq!(tree.in_order_print(), "12345");
+    }
+
+    #[test]
+    fn out_order_print() {
+        let mut tree = Tree::Empty;
+        tree.add(3);
+        tree.add(2);
+        tree.add(4);
+        tree.add(1);
+        tree.add(5);
+
+        assert_eq!(tree.pre_order_print(), "54321");
     }
 
     fn assert_element<T: std::fmt::Debug + std::cmp::Eq>(tree: &Tree<T>, elem: T) {

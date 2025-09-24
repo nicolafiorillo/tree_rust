@@ -6,8 +6,9 @@ Written in Rust.
 
 ## Notes
 
-Generate image from Graphviz dot file:
+Generate image from Graphviz (`sudo apt install graphviz`) dot file:
 
 ```bash
 dot -Tpng tree.dot -o tree.png
+open tree.png
 ```
